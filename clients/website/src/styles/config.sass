@@ -1,0 +1,144 @@
+@use "sass:math"
+@use "sass:color"
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Base size units
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+$u-tiny:     8px
+$u-smallest: 10px
+$u-smaller:  12px
+$u-small:    14px
+$u-unit:     16px
+$u-large:    20px
+$u-larger:   24px
+$u-largest:  32px
+$u-hero:     40px
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Layout and grid
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+$g-grid-gutter-min:    8px
+$g-grid-gutter-single: 15px
+$g-grid-gutter:        2 * $g-grid-gutter-single
+$g-grid-gutter-gap:    2 * $g-grid-gutter
+$g-g:                  $g-grid-gutter-gap // Utility shorthand for 'global grid gutter gap', retaining the 'global' prefix.
+
+$g-layout-width-content:     1200px
+$g-layout-margin-horizontal: $g-grid-gutter-single
+
+$g-layout-mast-height:     60px
+$g-layout-mast-margin:    10px
+$g-layout-mast-inset:     $g-layout-mast-height + $g-layout-mast-margin
+$g-layout-hero-padding:   3 * $g-grid-gutter
+$g-layout-hero-offset:    $g-layout-mast-inset + $g-layout-hero-padding
+
+// Breakpoints
+$g-layout-break-s:  420px
+$g-layout-break-sm: 768px
+$g-layout-break-m:  960px
+$g-layout-break-l:  1140px
+$g-layout-break-lm: 1366px
+
+// Safe to declare as abs since we use that to clamp max widths, not define fixed widths.
+$g-copy-width-max:   720px
+$g-copy-width-wider: $g-copy-width-max + 4 * $g-g
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Colors / Base palette
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+$g-color-brand-50: #b23
+$g-color-brand-40: #c45
+$g-color-brand-30: #c56
+$g-color-brand-20: #d78
+$g-color-brand-10: #eab
+
+
+$g-color-shade-100: #211
+$g-color-shade-90:  #422
+$g-color-shade-50:  #977
+$g-color-shade-40:  #b99
+$g-color-shade-30:  #cbb
+$g-color-shade-20:  #edd
+$g-color-shade-10:  #fee
+$g-color-shade-5:   #f6efef
+$g-color-shade-0:   #f9f6f6
+
+$g-color-highlight:  $g-color-brand-50
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Typography
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+$t-color: #000
+
+%t-size-smallest
+  font-size: $u-smallest
+%t-size-smaller
+  font-size: $u-smaller
+%t-size-small
+  font-size: $u-small
+%t-size-large
+  font-size: $u-large
+%t-size-larger
+  font-size: $u-larger
+%t-size-largest
+  font-size: $u-largest
+%t-size-hero
+  font-size: $u-hero
+
+$t-wgt-regular:  400 !default
+$t-wgt-semibold: 500 !default
+$t-wgt-bold:     600 !default
+
+%t-wgt-regular
+  font-weight: $t-wgt-regular
+%t-wgt-bold
+  font-weight: $t-wgt-bold
+
+%t-case-upper
+  text-transform: uppercase
+
+// Type / Technical
+%t-t
+  @extend %t-case-upper
+  @extend %t-wgt-bold
+  letter-spacing: 2px
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Borders
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+$g-border-color-subtle: $g-color-shade-10
+$g-border-color:        $g-color-shade-20
+$g-border-color-focus:  $g-color-shade-30
+$g-border:              1px solid $g-border-color
+
+$g-border-thick-width: 2px
+$g-border-thick:       $g-border-thick-width solid $g-border-color
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Helpers
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+%n-cursor-pointer
+  cursor: pointer
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Animations / Transitions
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+%a-t-fast
+  transition: .2s cubic-bezier(.2, .6, .6, 1)

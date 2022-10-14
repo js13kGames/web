@@ -1,0 +1,4 @@
+[submodule "clients/website/src/modules/resources/content"]
+	path = clients/website/src/modules/resources/content
+	url = https://github.com/js13kGames/resources
+	branch = main

@@ -1,0 +1,641 @@
+@import config
+
+*, *:before, *:after
+  box-sizing: border-box
+
+html
+  scroll-padding: $g-layout-mast-height
+
+body, iframe, h1, h2, figure, blockquote, dl, dd
+  margin: 0
+  padding: 0
+
+input, textarea, button, iframe
+  font: inherit
+  border: 0
+
+body
+  font: #{$u-unit}/1.5 a
+
+iframe
+  width: 100%
+  height: calc(100vh - #{$g-layout-mast-height})
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Typography
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+a
+  color: inherit
+  text-decoration: none
+
+em, i, address
+  font-style: normal
+strong, b
+  font-weight: $t-wgt-bold
+
+h1, h2
+  position: relative
+  font: 1em/1 g
+h1
+  font-size: $u-hero
+  max-width: 720px // TODO(alcore) Copy max width, var.
+
+
+.t-h
+  // Type / Heading / Anchor
+  &-a
+    &:before
+      content: '#'
+      position: absolute
+      left: -30px
+      color: $g-color-highlight
+      opacity: 0
+    &:hover:before
+      opacity: 1
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Lists
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+dl
+  display: grid
+  gap: $g-grid-gutter-single $g-grid-gutter
+  grid-template-columns: repeat(auto-fit, 250px)
+dt
+  flex: 1
+  font-size: $u-smallest
+  color: #568
+  @extend %t-t
+dd
+  font-size: $u-small
+  color: #9ac
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Images
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+picture, img
+  display: block
+  overflow: hidden
+  transition: .5s
+
+img
+  max-width: 100%
+  height: auto
+  &.lazy
+    opacity: 0
+  &.loaded
+    opacity: 1
+
+svg
+  fill: currentColor
+.stroke
+  fill: none
+  stroke: currentColor
+  stroke-linecap: round
+  stroke-linejoin: round
+  stroke-width: 2
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Figures, quotes
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+figcaption
+  margin-top: $g-grid-gutter-single
+  font-weight: $t-wgt-bold
+  text-align: right
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Forms
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+input
+  accent-color: $g-color-highlight
+label
+  @extend %n-cursor-pointer
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Global / Nav
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+#g-n
+  z-index: 5
+  position: sticky
+  top: 0
+  margin-top: $g-layout-mast-margin
+  background: #222733
+  color: #fff
+  // Using the shorthand here because it's slightly shorter than 'font-family', plus we want to reset the line height.
+  font: $u-small g
+  @extend %a-t-fast
+
+  h2
+    margin: 0 $g-grid-gutter
+  nav
+    position: relative
+    margin-left: auto
+    color: #9ac
+    a
+      padding: $g-grid-gutter-single
+  .active, a:hover
+    color: #fff
+  img
+    border-radius: 5px
+
+  &.dark
+    background: rgba(black, .2)
+  &.sticky
+    background: #111622
+
+  &-game
+    width: 100%
+    justify-content: space-between
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Global / Footer
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+#g-f
+  margin: 2 * $g-g auto $g-grid-gutter
+  padding: $g-g 0
+  font-size: $u-small
+  background: $g-color-shade-0
+  h2
+    font: $u-unit g
+    color: $g-color-shade-30
+    margin-bottom: $g-grid-gutter-single
+  a
+    line-height: 2
+    &:hover
+      font-weight: $t-wgt-bold
+  nav
+    display: grid
+    grid: 1fr / 1fr 1fr 1fr
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Global / Legal
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+#g-legal
+  justify-content: space-between
+  margin: $g-grid-gutter auto
+  font-size: $u-smaller
+  color: $g-color-shade-50
+  svg
+    width: 32px
+    height: 32px
+    padding: $g-grid-gutter-min
+  a
+    &:hover
+      color: $t-color
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Common page components
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+#p
+  // Page / Hero
+  &-h
+    margin-top: -#{$g-layout-mast-inset}
+    background: #b23
+    color: #fff
+    padding-top: $g-layout-hero-offset
+    padding-bottom: $g-layout-hero-padding
+    overflow: hidden
+
+    span
+      font: $u-small g
+      color: #e89
+    img
+      justify-self: center
+      box-shadow: 0 0 4em rgba(black, .4), 0 6em 8em -4em black
+    .btn, .fallback
+      margin: $g-grid-gutter 0
+    .fallback
+      margin-top: -1 * $g-grid-gutter-single
+      font-size: $u-smaller
+      text-align: center
+      color: #9ac
+      a
+        text-decoration: underline
+    &.dark
+      background: #222733
+
+      a:hover
+        color: #fff
+      span
+        color: #9ac
+      small
+        &:before
+          content: '//'
+          margin: 0 5px
+          color: $g-color-highlight
+
+
+  // Page / Sidebar
+  &-side
+    display: none
+    // TODO(alcore) Variable for subbar height.
+    position: sticky
+    top: $g-layout-mast-inset + $g-grid-gutter
+    align-self: flex-start
+    font-size: $u-small
+
+
+  // Page / Table of Contents
+  &-toc
+    a
+      padding-left: $g-grid-gutter-single
+      color: $g-color-shade-40
+      line-height: 2
+      border-left: $g-border-thick
+      &:hover
+        color: $t-color
+      &.active
+        font-weight: $t-wgt-bold
+        color: $t-color
+        border-color: $g-color-highlight
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Module / Games / Index
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+#m-g
+  display: grid
+  justify-content: space-around
+  grid-template-columns: repeat(auto-fit, 160px)
+  gap: $g-grid-gutter 0
+  margin-top: $g-grid-gutter
+
+  a
+    overflow: hidden
+    display: flex
+    flex-flow: column
+    color: #fff
+    background: $g-color-shade-100
+    box-shadow: 0 2em 4em -2em rgba($g-color-shade-50, var(--s0)), 0 0 15px rgba($g-color-shade-50, var(--s1))
+
+    &:hover
+      --s0:  1
+      --s1: .1
+      background: $g-color-highlight
+      h2
+        color: #fff
+      img
+        transform: scale(1.05)
+        filter: brightness(1.1)
+      address
+        color: $g-color-shade-20
+        border-color: $g-color-brand-40
+
+  h2
+    flex: 1
+    font-size: $u-small
+    margin: $g-grid-gutter 15px 0
+    color: $g-color-shade-20
+
+
+  &-opts
+    // Hiding overflow due to social button tooltips overflowing
+    padding: $g-grid-gutter-single 0
+    font-size: $u-smaller
+    color: $g-color-shade-50
+    background: rgba($g-color-shade-5, .9)
+    backdrop-filter: blur(7px)
+    user-select: none
+
+    .l-c
+      flex-wrap: wrap
+      gap: $g-grid-gutter-single
+
+    .opt
+      gap: $g-grid-gutter-single
+      padding: $g-grid-gutter-min $g-grid-gutter-single
+      min-width: 100%
+      background: rgba(#fff, .7)
+      box-shadow: 0 0 .5em rgba($g-color-shade-50, .3)
+      font-weight: $t-wgt-bold
+      &:hover span
+        color: $t-color
+
+    input
+      width: auto
+      // All our checkboxes are right-aligned an in flex boxes, so this places margin between the inputs
+      // and the actual labels.
+      margin-left: auto
+    span
+      flex: 1
+      text-transform: uppercase
+      font-size: $u-smallest
+      letter-spacing: 1px
+
+#m-g-opts-cat
+  position: relative
+  // Push additional options to the right
+  margin-right: auto
+  cursor: pointer
+
+  &-selector
+    position: absolute
+    top: 40px
+    left: 0
+    width: 100%
+    flex-flow: column
+    background: #fff
+    box-shadow: 0 0 .5em rgba($g-color-shade-50, .3)
+    opacity: 0
+    pointer-events: none
+    transform: translateY($g-grid-gutter-single)
+    @extend %a-t-fast
+
+    &.active
+      opacity: 1
+      pointer-events: all
+      transform: translate(0)
+
+    label
+      display: flex
+      padding: $g-grid-gutter-min $g-grid-gutter-single
+      &:hover
+        background: $g-color-shade-0
+    .checked
+      color: $t-color
+
+// Belongs to #m-g but is currently unused otherwise, so we're targeting broadly.
+address
+  margin: 15px
+  padding-top: 15px
+  font: $t-wgt-bold $u-tiny a
+  color: $g-color-shade-40
+  border-top: 1px solid $g-color-shade-90
+  @extend %t-t
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Module / Games / View
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+#m-g-v
+  section
+    margin-top: $g-g
+  h2
+    margin-bottom: $g-grid-gutter
+    font-size: $u-larger
+    small
+      color: $g-color-shade-40
+
+  &-head
+    position: relative
+    z-index: 2
+  &-img
+    position: relative
+    &-front
+      position: relative
+    &-backdrop
+      position: absolute
+      top: 2 * $g-g
+      filter: blur(75px)
+      max-width: initial
+      width: 200%
+      height: 200%
+      opacity: .8
+
+  &-meta
+    a
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+    svg
+      // Note: Could apply 'gap' on the parent 'dd' element, but that would be currently the only
+      // property. It's slightly less bytes to apply margin on the icon.
+      margin-left: $g-grid-gutter-min
+      width: $u-small
+      height: $u-small
+
+  &-desc
+    white-space: pre-wrap
+
+  &-feedback
+    display: grid
+    gap: $g-grid-gutter
+
+    figure
+      padding: $g-grid-gutter
+      font-size: $u-small
+      border: 1px dashed $g-border-color
+
+      &.expert
+        border-color: $g-color-highlight
+
+    blockquote
+      flex: 1
+      white-space: pre-wrap
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Module / Resources
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+#m-r
+  margin-top: $g-g
+  grid: 1fr / minmax(auto, $g-copy-width-max)
+  h2
+    scroll-margin: $g-g
+    font-size: $u-larger
+  h2:first-child
+    margin-top: 0
+  h2, h3
+    margin: $g-g 0 $g-grid-gutter-single
+  h3
+    color: $g-color-highlight
+  h4
+    margin-top: $g-grid-gutter
+    @extend %t-t
+  ul
+    list-style: none
+    margin: $g-grid-gutter 0
+    padding: 0
+    display: grid
+    gap: $g-grid-gutter-single $g-g
+    font-size: $u-small
+    color: $g-color-shade-50
+    a
+      text-decoration: underline $g-color-highlight
+      &:first-child
+        display: block
+        color: $t-color
+        font: $t-wgt-bold $u-unit a
+        margin-bottom: 5px
+      &:hover
+        color: $g-color-highlight
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Special elements
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+.logo
+  font: $u-large g
+  svg
+    margin: 15px 15px 15px 0
+    width: 40px
+    height: 30px
+  svg, i
+    color: $g-color-highlight
+  &:hover
+    svg, i
+      color: $g-color-brand-40
+    svg
+      transform: scale(1.1) rotate(5deg)
+
+.label
+  background: $g-color-highlight
+  color: #fff
+  border-radius: 3px
+  padding: 3px 5px
+  margin: 0 5px
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Interactive / Button
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+.btn
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 0 $g-grid-gutter-single
+  font: $t-wgt-bold $u-smallest a
+  background: $g-color-brand-50
+  color: #fff
+  // Align with height when icons are present, regardless of base size.
+  line-height: 36px
+  @extend %n-cursor-pointer
+  @extend %a-t-fast
+  @extend %t-t
+  &:hover
+    background: $g-color-brand-40
+  &.loading
+    svg
+      animation: loading 2s infinite linear
+  svg
+    margin: 0 $g-grid-gutter-min
+    width: 20px
+    height: 20px
+
+@keyframes loading
+  100%
+    transform: rotate(360deg)
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Layout / Flexbox / Helpers
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+.f, %f
+  display: flex
+  &-ac
+    @extend %f
+    align-items: center
+  &-c
+    @extend .f-ac
+    justify-content: center
+  &-col
+    @extend %f
+    flex-flow: column
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Layout / Containers
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+.l-c
+  margin: 0 auto
+  max-width: $g-layout-width-content
+  @extend %l-pad-x
+
+.l-g
+  display: grid
+  gap: $g-g 2 * $g-g
+  @extend %l-pad-x
+
+%l-pad-x
+  padding-left: $g-layout-margin-horizontal
+  padding-right: $g-layout-margin-horizontal
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Responsiveness / Helpers
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+.r-h-s
+  display: none
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Media queries
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+@media (min-width: $g-layout-width-content + $g-layout-margin-horizontal)
+  .l-c, .l-g
+    padding-left: 0
+    padding-right: 0
+
+
+@media (min-width: $g-layout-break-sm)
+  #m-g
+    gap: $g-grid-gutter
+    justify-content: space-between
+
+    &-opts
+      position: sticky
+      top: $g-layout-mast-height
+      z-index: 2
+      .opt
+        min-width: 240px
+      .slim
+        min-width: initial
+
+
+@media (min-width: $g-layout-break-m)
+  #m-g-v
+    &-img-backdrop
+      top: -2 * $g-g
+      left: -2 * $g-g
+    &-feedback
+      grid: 1fr / 1fr 1fr
+      h2
+        grid-column: span 2
+
+  #m-r
+    grid: 1fr / minmax(auto, $g-copy-width-max) 360px
+    ul
+      grid: 1fr / 1fr 1fr
+
+  #p-side
+    display: revert
+
+  .r-h-s
+    display: revert
+  .l-g
+    grid: 1fr / repeat(2, minmax(1%, 540px))
+    justify-content: center
+
+
+
+// ~ -------------------------------------------------------------------------------------------------------------------
+// Transitions
+// ~ -------------------------------------------------------------------------------------------------------------------
+
+a, :before, img, svg, i, b, span, address, label
+  @extend %a-t-fast
